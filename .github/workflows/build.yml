@@ -35,5 +35,5 @@ jobs:
         with:
           context: .
           file: ./Dockerfile  # Use Dockerfile in the root of the repo
-          tags: jarivancauwenberghe/webapp:latest  
+          tags: jari.vancauwenberghe@student.hogent.be/webapp:latest  
           push: false  # Do not push the image to Docker Hub yet

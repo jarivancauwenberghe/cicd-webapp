@@ -1,11 +1,7 @@
 # Dockerlab sample application
 
-<<<<<<< HEAD
-This is a sample application for the Dockerlab of the Machine Learning Operations course.
-=======
 - Student name: JARI VANCAUWENBERGHE
 - Repository URL: <https://github.com/HOGENT-MLOps/USERNAME/REPO>
->>>>>>> 23fd796 (Add GitHub Actions workflow demo)
 
 This application requires [NodeJS](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) to run. We assume that you have installed these tools on your system.
 

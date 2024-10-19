@@ -1,28 +1,39 @@
 ---
 name: Build and test
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       # Step 1: Check out the repository code
       - name: Check out repository code
         uses: actions/checkout@v3
-      # Step 2: Set up Node.js
+
+      # Step 2: Set up Node.js 20
       - name: Set up Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      #Finally, add a step to run the command yarn lint.
+
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: yarn install
+
+      # Step 4: Lint code
       - name: Lint code
         run: yarn lint
-        
 
-
-
-  
+      # Step 5: Build Docker image
+      - name: Build Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile  # Use Dockerfile in the root of the repo
+          tags: jarivancauwenberghe/webapp:latest  
+          push: false  # Do not push the image to Docker Hub yet

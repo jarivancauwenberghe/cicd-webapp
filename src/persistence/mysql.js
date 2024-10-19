@@ -1,21 +1,22 @@
-import knex from "knex";
-import Boom from "@hapi/boom";
-import generateFakeData from "./generateFakeData.js";
+import knex from 'knex';
+import generateFakeData from './generateFakeData.js';
+import Boom from '@hapi/boom';
 
-let knexInstance;
+const db = knex({
+  client: 'mysql2',
+  connection: process.env.MYSQL_URL,
+});
 
 export async function initialize() {
-  knexInstance = knex({
-    client: 'mysql2',
-    connection: process.env.MYSQL_URL,
+  await db.schema.createTableIfNotExists('animal', (table) => {
+    table.increments('id');
+    table.string('name');
   });
-  await knexInstance.raw('CREATE DATABASE IF NOT EXISTS `animals`;');
-  await knexInstance.raw('CREATE TABLE IF NOT EXISTS `animals` (`id` INT NOT NULL, `name` VARCHAR(255) NOT NULL, PRIMARY KEY (`id`));');
 
-  const [animalCount] = await knexInstance('animals').count();
-
-  if (animalCount['count(*)'] === 0) {
-    await knexInstance('animals').insert(generateFakeData());
+  const count = await db('animal').count();
+  if (count[0]['count(*)'] === 0) {
+    const data = generateFakeData();
+    await db('animal').insert(data);
     console.log('Fake data generated');
   }
 
@@ -23,16 +24,15 @@ export async function initialize() {
 }
 
 export async function close() {
-  await knexInstance.end();
-  knexInstance = null;
+  await db.destroy();
 }
 
 export async function getAnimals() {
-  return await knexInstance('animals').select();
+  return await db('animal').select();
 }
 
 export async function getAnimal(id) {
-  const animal = await knexInstance('animals').where('id', id).first();
+  const animal = await db('animal').where({ id }).first();
   if (!animal) {
     throw Boom.notFound('Animal not found');
   }

@@ -1,19 +1,14 @@
-import fs from "node:fs";
-import sqlite3 from "sqlite3"
-import { open } from "sqlite";
-import Boom from "@hapi/boom";
-import generateFakeData from "./generateFakeData.js";
+import { open } from 'sqlite';
+import sqlite3 from 'sqlite3';
+import generateFakeData from './generateFakeData.js';
+import Boom from '@hapi/boom';
 
 let db;
 
 export async function initialize() {
-  if (!fs.existsSync('./database')) {
-    fs.mkdirSync('./database');
-  }
-
   db = await open({
-    filename: './database/database.sqlite',
-    driver: sqlite3.Database
+    filename: ':memory:',
+    driver: sqlite3.Database,
   });
 
   await db.exec('CREATE TABLE IF NOT EXISTS animal(id INTEGER PRIMARY KEY, name TEXT)');

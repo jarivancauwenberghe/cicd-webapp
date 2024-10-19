@@ -1,14 +1,13 @@
 import express from 'express';
 import Boom from '@hapi/boom';
-import morgan from 'morgan'
-import persistence from './persistence/index.js'
+import morgan from 'morgan';
+import persistence from './persistence/index.js';
 
-const PORT = 3000
+const PORT = 3000;
 
 function asyncMiddleware(fn) {
   return (req, res, next) => {
-    Promise.resolve(fn(req, res, next))
-      .catch(next);
+    Promise.resolve(fn(req, res, next)).catch(next);
   };
 }
 
@@ -37,12 +36,11 @@ app.get('/animals/:id', asyncMiddleware(async (req, res) => {
 }));
 
 app.use((err, _, res, next) => {
-  res.status(Boom.isBoom(err) ? err.output.statusCode : 500)
-    .json({
-      error: err.message,
-    });
+  res.status(Boom.isBoom(err) ? err.output.statusCode : 500).json({
+    error: err.message,
+  });
   next();
-})
+});
 
 persistence
   .initialize()
@@ -56,4 +54,3 @@ persistence
     console.error(err);
     process.exit(1);
   });
-

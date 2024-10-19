@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"  # This refers to the root directory of your repo where your GitHub Actions workflow file is
+    schedule:
+      interval: "weekly"

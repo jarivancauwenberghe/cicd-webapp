@@ -11,6 +11,18 @@ jobs:
       # Step 1: Check out the repository code
       - name: Check out repository code
         uses: actions/checkout@v3
+      # Step 2: Set up Node.js
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      #Finally, add a step to run the command yarn lint.
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint code
+        run: yarn lint
+        
+
 
 
   

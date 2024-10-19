@@ -1,0 +1,16 @@
+---
+name: Build and test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository code
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+
+  

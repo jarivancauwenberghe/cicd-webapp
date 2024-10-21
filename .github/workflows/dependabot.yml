@@ -13,8 +13,6 @@ updates:
       interval: "weekly"  # Check for updates weekly
     commit-message:
       prefix: "deps"  # Set a prefix for the commit message
-    ignore:
-      - dependency-name: "*"  # Exclude all dependencies
     groups:
       all-npm-packages:
         patterns:

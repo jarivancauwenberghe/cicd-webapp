@@ -6,8 +6,17 @@ updates:
     schedule:
       interval: "weekly"
 
-  # For npm dependencies updates
+  # For npm dependencies updates (grouped)
   - package-ecosystem: "npm"
-    directory: "/"  # This refers to the root directory where package.json is located
+    directory: "/"  # Refers to the root directory where package.json is located
     schedule:
       interval: "weekly"  # Check for updates weekly
+    commit-message:
+      prefix: "deps"  # Set a prefix for the commit message
+    ignore:
+      - dependency-name: "*"  # Exclude all dependencies
+    groups:
+      all-npm-packages:
+        patterns:
+          - "*"
+
